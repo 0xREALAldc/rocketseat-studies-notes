@@ -1,0 +1,206 @@
+- `HyperText Transfer Protocol` : 
+	- rules to how we can transfer hyperTexts
+	- allow us to exchange informations and data on the internet
+	- exchange messages, where we can send/receive HTML, CSS, Scripts, Images and Videos...
+
+- `Request`
+	- `Methods`
+		- define the type of our request
+		- what action that *I WANT* to do in the server
+		- eg:
+			- `GET`: we will get a resource
+			- `POST`: create a resource
+	- `Headers`
+	- `Body`: not obligatory 
+
+- `Response` 
+	- `Status code`
+		- the response from the server about the status of the request
+		- eg
+			- `200`: the code that everything was OK
+			- `301`: redirecting request 
+			- `404`: page not found
+			- `500`: internal server error
+	- `Headers`
+	- `Body` 
+	
+- `Headers`: 
+		- informative fields
+		- in the form of `key: value` 
+		- eg
+			- `Content-Type: application/json`
+			- `User-Agent: Chrome`
+			- `Request URL: www.google.com` 
+	- `Body`: 
+		- `HMTL`
+		- `Content`
+		- `JSON`
+
+- `Resource` : 
+	- the location where we send the request
+	- we will use a URL 
+		- eg:
+			- `https://google.com`
+			- `http:/localhost:3000/posts?q=oracle` 
+
+- `curl` : to see the manual, just type `man curl` in the terminal
+	- `curl <web site we want to look the response>`
+	- `curl -i <web site we want to look the response>` : `-i` to see the headers
+	- `curl -v <web site we want to look the response>` : to see ALL the headers
+
+- `Concepts` 
+	- simple and readable by anyone
+	- based in the interaction between *client/server*, request/response
+	- *stateless* : doesn't store state
+		- don't store data
+		- there's no relation between the connections
+		- *sessions*: they exist in the browsers to store some information that we WANT to store as:
+			- Cookies
+			- Local storage, session storeage..
+	- Extensible
+		- by the utilization of the headers we can make many exchanges of data between the client and server, using *headers* 
+		- *body* used to send more data in our *request* ou receive something in the *response*
+
+- `Client` : 
+	- it's the *User Agent* 
+		- most of the times it's a *Browser*
+		- also can be the *cURL* 
+	- it's the entity that begins the communication 
+	- `Requests` 
+		- are done by *actions* done by the client
+			- GET: request some data
+			- POST: create some record
+			- PUT: update some record
+			- DELETE: delete a record
+
+- `Server`: 
+	- it's a machine somewhere in the world
+	- listening to requestes to process
+	- there's the possibility of one computer have many servers running 
+	- *response* 
+		- have *HEADERS* 
+			- that containg *status code*, 404, 500
+		- can have a *BODY* 
+
+- `Proxies`: 
+	- are things that stand between the *client* and *server*
+	- help to exchange the data
+	- eg
+		- internet router
+	- can have many functionalities
+		- *cache* to answer something faster
+		- *filter* like a antivirus or parental control
+		- *load balancing* distribute the load in path that the data runs until it gets delivered to the client
+		- *authentication*
+		- *authorizations* 
+
+- `URI`: 
+	- *Uniform Resource Identifier* : 
+		- identify a resource
+		- by their *name* or *location*
+		- eg
+			- You are a *resource*
+				- you have a name
+				- you have an address
+
+		- `resource`: 
+			- it's the *target* for the request
+			- if we can *identify, give a name, address or handle* it's a `resource` 
+			- can be something identifiable or a entity
+				- digital as a *email*
+				- abstract as a *session* or a *authentication*
+				- physical as a *product* or a *user in the system
+
+
+
+		- `Locator`: 
+			- we use the *URL*
+				- that stands for *Uniform Resource Locator* 
+				- every URL is a URI, but the inverse it's not always true
+				- has 2 obligatory components and 5 optional
+					- obligatories:
+						- protocol (http, https, mailto, ftp)
+						- domain (rocketseat.com.br)
+					- optional: 
+						- sub domain (www)
+						- path (...the_webiste`/blog`) 
+						- parameters (...the_website/watch`?v=aushdhaus`) 
+						- port (...the_website`:8080`) 
+							- without explicitly informing, when we use *http* it's port 80 and with *https* it's port 443
+						- anchor (...the_website/index.html`#someplace`) 
+							- it's how we can send the user to a specific place in the html of a page
+
+		- `name`: 
+			- *URN Uniform Resource Name* 
+			- eg
+				- `urn:isbn:0451450523` this would provide you with a book
+			- the URN it's not very used in the web development
+
+- `HTTP Messages` 
+	- composed by `request` or `response` 
+	- exists in two versions `HTTP/1.1` and `HTTP/2`
+		- `HTTP/1.1` more ligible and using text
+		- `HTTP/2` binary structure, better for optimizations but in the end it's the same as the 1.1 version
+
+- `Methods`
+	- Options
+		- gives us informations about the disponibility of the methods of the request
+		- `curl -X OPTIONS http://localhost:3000/posts -i` will return some data to us, and in that data one line outstands it self that it's the one showing the allowed methods
+			- **Access-Control-Allow-Methods**: GET,HEAD,PUT,PATCH,POST,DELETE
+	- Get
+		- to get a resource
+		- only receives data
+		- don't have *body* in **requests**, only in **responses** 
+	- Head
+		- it's similar to *GET* but we only receive in the response the *head*, nothing more
+	- Post
+		- publish or register a resource
+		- create something
+		- have *body* in the request and response. There's actually a chance that you only receive a *status 200* in the response
+	- Put: 
+		- create a new or update a resource
+		- when creation
+			- status code 201
+		- when update
+			- status code 204 or 200
+		- have *body* in the request but not in the response 
+	- Patch
+		- partially change a resource, differs from *put* because *put* is used to change the whole resource
+		- can have body in both *request/response*
+	- Delete
+		- to remove a resource
+		- status code 
+			- 202 *accepted*
+			- 204 *no content*
+			- 200 *ok* 
+		- possible to have body in the *request/response* 
+	- Headers
+		- additional information that is used in the *request or response* 
+		- `Name : value` 
+		- we have three contexts for *headers* 
+			- *General* 
+			- *request headers*
+			- *response headers*
+
+- `Status code`
+	- *1 0 0*
+		- all right, continue
+	- *2 0 0*
+		- *200* : Ok (GET, POST)
+		- *201* : Created (PUT)
+		- *204*: No Content (DELETE, PUT)
+	- *3 0 0*
+		- *301* : moved permantly (usually GET)
+		- *308*: permanent redirect (more to POST)
+		- *302*: found (more for GET)
+		- *307*: Temporary redirect (more for any but GET)
+	- *4 0 0*
+		- *400*: bad request
+		- *401*: Unauthorized
+		- *403*: Forbidden
+		- *404*: not found
+		- *405*: method not allowed
+		- *429*: too many requests
+	- *5 0 0*
+		- *500*: internal server error
+		- *503*: service unavaiable
