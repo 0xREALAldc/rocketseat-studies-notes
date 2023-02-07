@@ -1,0 +1,13 @@
+- `What the hell is a API (Application Programming Interface) `
+	- a intermediary that allows two applications to interact with each other
+	- are an accessible way to extract and share data within and across organizations
+	- it's a way for us to get data from other sources beyond our database
+	- can be a path to send data from one application to another, like a payment gateway to run a payment
+
+- `JSON (JavaScript  Object Notation)` 
+	- commonly used in web development to exchange data
+	- can be used in any language
+	- it's composed by a structure of *key - value* 
+	- we can store strings, numbers, arrays, objects
+	- the *key* **CANNOT** have spaces, so if is more than one word, we separate with *underscore _* 
+	- 
