@@ -22,9 +22,38 @@
 	- it's a client that let us test RESTful applications, because using only the browser we can't do other calls beyond *GET* 
 	- it's where we'll be testing our *API's* 
 
-- `Beggining a project with NodeJS`
+- `Begining a project with NodeJS`
 	- *npm init -y* : this command creates a file called *package.json* that's the beggining of a project using node
 - `Express` 
 	- it's a framework that we'lll use to help us when creating our *API*
 	- he already has all the *http methods* and also *middlewares* that we will see later 
+	- *Middleware* : it's like a bridge between the requisitions, so when we call a *path* from the API our call will first go through the *middleware* and then do whatever it's supposed to
 	- `npm i express` : command to install into the project
+	- `index.js` : will be a main file where we will tell node how to create our application
+	- *to run a nodeJS project*: we use the command `node index.js` 
+		- we can also use `node .` and this has a dependency that in the *package.json* the *main* property is set with the name of the file that hold our application
+	- `app.listen('port_number')` : we set the port that our application will run
+	- `app.route` : we use to declare the routes that our application will have
+		- we then specify the *path* to the route and the method that will use
+			- `app.route('/').get( (req, res) => res.send("Welcome to Home Page") )`
+			- `app.route('/register').post( (req, res) => console.log(req.body) )`
+				- using *post* and sending a body in *JSON* we'll have to say to our application that we will use *JSON*, so we do like below
+					- `app.use(express.json())` : this line will tell our application to know that we're going to be using *JSON* files
+			- `app.route('/register').put( (req, res) )`
+	- `sending parameters in routes` : we have three ways to send parameters in routes, the *body params, route params and query params*
+		- *body params*: 
+			- the informations sent to the *API* will not be showed anywhere in the URL
+			- they'll be sent inside the *body*
+			- a *body* can be only sent in the *PUT, PATCH* and *POST* http methods
+		- *route params*: 
+			- the param will be visible in the *url* 
+			- we will declare like `/:id` and in the application we'll get the value from `req.params.NAME_OF_ROUTE_PARAM`, in this case, `req.params.id` 
+		- *query params*: 
+			- the params will also be sent in the *url*
+			- each one is defined by the syntax *?name=VALUE* 
+				- eg: `?search=how+to+find+love` 
+			- we can send more than *ONE* query param in the url, we just need to separate them using the *&* 
+				- eg: `?search=how+to+find+love&city=london` 
+			- in our application, to get each of the params sent we can use *req.query.variable_name_used* 
+				- eg: `req.query.search`
+				- or if it's more than one as above, `const { search, city } = req.query;` 
