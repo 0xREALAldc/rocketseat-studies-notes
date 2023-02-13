@@ -57,3 +57,38 @@
 			- in our application, to get each of the params sent we can use *req.query.variable_name_used* 
 				- eg: `req.query.search`
 				- or if it's more than one as above, `const { search, city } = req.query;` 
+
+`working with github api` 
+- we're just going to update the project to get the information of a user in github and display the picture of the user when calling the `/` path
+
+`Using fetch in the FrontEnd` 
+- `Fetch` 
+	- it's a JS interface that allows us to do http calls from the frontend
+	- we're going to use a node api that is *OUR* and running locally to make calls from our front end page using *fetch* 
+		- project with the API: 
+			- https://github.com/jakeliny/node-api-discover
+	- is promise based
+	- *POST* : 
+		- we can use POST with fetch to send data
+		- in the call using *fetch* to do a POST, we need to specify the *method* as being a POST, because the default is *GET* and also the *headers*
+	- *PUT* 
+		- it's just like a POST call, we just need to pass the ID of the user because the API requires and use *PUT* in the method
+	- *DELETE* 
+		- 
+```javascript
+function addUser(newUser) {
+  fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(newUser), 
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8'
+    }
+  })
+  .then(response => response.json())
+  .then(data => alertApi.textContent = data)
+  .catch(error => console.error(error))
+}
+```
+
+`Using Axios in the FrontEnd`
+- 
