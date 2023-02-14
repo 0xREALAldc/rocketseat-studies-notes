@@ -74,7 +74,7 @@
 	- *PUT* 
 		- it's just like a POST call, we just need to pass the ID of the user because the API requires and use *PUT* in the method
 	- *DELETE* 
-		- 
+		- it's just like the others, we need to pass the *method, headers* not a *body* because we only need to know the *id* of the record that's going to be deleted
 ```javascript
 function addUser(newUser) {
   fetch(url, {
@@ -91,4 +91,6 @@ function addUser(newUser) {
 ```
 
 `Using Axios in the FrontEnd`
-- 
+- we're going to need to import in the `index.html` the script that is the path for a *cdn* for *axios* that enables us to use in our *main.js*
+- the use is basically almost equal to the one that we made with fetch
+- one thing that changes is that when using *POST* and *PUT* we pass the data a little bit different, we don't need to set *method, body, headers* we only pass the object as a second parameter after the *URL* 
