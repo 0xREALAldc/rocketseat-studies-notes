@@ -44,13 +44,34 @@
 - in the file *main.jsx* we have the *createRoot* creates the root of our page in html in the *root* elemnet cited above. If we look in this file, we are using the same syntax that we use for *HTML tags* but for what is *react components*, like the *<App />* 
 
 `Components` 
-- a component in react is *a funtion that returns HTML* 
+- a component in react is *a function that returns HTML*, where we abstract a part of our whole interface in other archive that can be reusable as many times in our application as we need
 	- this is why our components have the extension *.jsx* that stands for *JavaScript + XML* 
 	- it's a JS file that has HTML
 - it's a piece of our interface that we maintain in a separated file that is easier to give maintenance and also is something that's easier to replicate if we want to, like inside a loop or something like this, even being populated with different informations
-- 
+- *Default Exports vs Named Exports*
+	- In the *Default exports* the advantages that are said to be given is that you're able to give a name to the component when you're doing the *import* in another component, and not when you do the *export ...* 
+	- In the *Named exports* we don't use the *export default [name of component]* in the end of the file, we put the *export* keyword before the function name and we export by the name of the function. In the file that we want to import, we will use the following syntax `import { MyComponent } from './MyComponent'` 
 
+`Properties` 
+- you can understand the *properties* in react kind like the *attributes* that exist in html
+- this is the way that we can pass different values to our components, where we can replicate them if needed in our UI but have different content for each of them
+- `props` 
+	- in every component we have the *props* that is a object that contains every properties that was passed to our component
+	- in our project, we are passing two properties that are *author* and *content*, inside our *props* we have them like below
+		- `props: { author: "...", content: "..." }` 
+	- in *react* when we want to display a value of a variable JS inside the html, we nees to use the *curly braces* around the variable inside the tag 
+		- `<p>{ props.content } </p>` 
 
+`Application structure` 
+- `Css Modules` 
+	- important to mention that in *react* we don't import *css* files to the *index.html*, we do this always in our components
+	- *scoped css* when we do the css maintaining the scope of the component, that css will only apply to that specif component 
+	- *Vite* has automatic support to *Css Modules*
+	- when we use *css modules* we try to only use *classes* to add our styling in our components, not using another types of selectors
+	- when we use css in a component, we always use *className* and not *class* 
+	- *A IMPORTANT* thing to remember is that when we use *css modules* when we import the css file in our component, we need to *GIVE A NAME* to it, like in th example below
+		- `import styles from './Header.module.css' ` 
+	- link to reference : https://github.com/css-modules/css-modules
 
 
 
