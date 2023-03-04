@@ -64,6 +64,7 @@
 
 `Application structure` 
 - `Css Modules` 
+	- link to reference : https://github.com/css-modules/css-modules
 	- important to mention that in *react* we don't import *css* files to the *index.html*, we do this always in our components
 	- *scoped css* when we do the css maintaining the scope of the component, that css will only apply to that specif component 
 	- *Vite* has automatic support to *Css Modules*
@@ -71,8 +72,30 @@
 	- when we use css in a component, we always use *className* and not *class* 
 	- *A IMPORTANT* thing to remember is that when we use *css modules* when we import the css file in our component, we need to *GIVE A NAME* to it, like in th example below
 		- `import styles from './Header.module.css' ` 
-	- link to reference : https://github.com/css-modules/css-modules
+		- then when we want to use in a component filling the *className* we will need to use the syntax that we use when we want to use a JS var. So in our component the *className* will be filled as the example below, using curly brackets
+			- EG: `strong className={styles.header}>Ignite Feed</strong>` 
+		- if we take a closer look inspecting the element in our browser, we'll se that the name of the *class* in the css that is applied to him it's kinda weird, it'll be a mixture of the name that we choosed for the class, as the example above that we choose *header* with a random hex concatenated. 
+			- Css Modules does this to ensure that not one class that we use in one component change the css style in other component, if in this second component we use the same *name* for the class, as it would be if in component 2 we had in the css a class named *header* again
+	- `global.css` 
+		- will be our global css styling sheet, with some default styles that we want to be applied in the whole project 
 
+`css variables`
+- we can declare our custom css variables for colors that we want to make default for our project, as the example below.
+	- to use them after declaring, we will use the following syntax 
+		- `background: var(--gray-300)` 
+```css
+:root {
+	--white: #ffffff;
+	--gray-100: #e1e1e6;
+	--gray-300: #c4c4cc;
+	--green-500: #00875f;
+}
+```
+
+`A note about using metric units on css - REM` 
+- when we use *1rem* means that we're using ONE metric unit relative to the default font size for html, that is 16px
+- this means the size of font will be relative to the device, and allows to if people have theis devices configured to increase/decrease the font size to still do this in your website.
+- it's a good practice to use this relative metric units in every aspect of our application, like for buttons or spacing, because in this way our appplication will grow or shrink as a whole in all elements if the user have some custom configuration in his device
 
 
 
@@ -81,6 +104,20 @@
 - *n node manage package* : manager to use with nodeJS. It's easier to change between versions of node using this manager, take a look someday
 	- https://github.com/tj/n
 
+
+- *TIP FOR USING REM metric units* - how to easily convert them
+	- as 1rem get's the default font value for html that is 16px, we can add a tag *html {}* where we set the *font-size* to 62.5%. 
+	- when we set to this value, 62.5% from 16px it's 10, bringing the REM metric unit to something closer to what we are more used to use in our daily life
+	- in this way 1rem it's 10px, as 0.1rem it's 1px
+	- it get's way easier to convert them, like it's showed in some examples below
+		- EG: 
+			- 48px it's the same as 4.8rem
+			- 61px it's the same as 6.1rem
+			- 1248px it's the same as 124.8rem
+
+
 `Repository for the project`
 - we can find the code for the project in:
 	- https://github.com/0xREALAldc/ignite-01-reactjs-fundamentals
+
+
