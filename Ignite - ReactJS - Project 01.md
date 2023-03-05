@@ -101,6 +101,20 @@
 - just as we did with the Css files, we also need to give it a name when we import images to our components, like the example below
 	- `import igniteLogo from '../assets/ignite-logo.svg'` 
 
+`Icons with Phosphor Icons`
+- to use this library in our project we first need to install it with the command below
+	- `npm i phosphor-react` 
+- then to use it we will first do the import like is shown below
+	- `import { [name of the Icon] } from 'phosphor-react'` 
+- then to use the Icon, we just use the name as if it was a tag for a element, if we had got the Icon *PencilLine*, we would use it as below
+	- EG: `<PencilLine />` 
+
+`Flow to create a UI for a component`
+- we can follow this flow, it's not meant to be the best, but I thought it's a cool way to think how the structure should be
+	1. Create the html structure that will be needed to show all the content that you want, using static information *(HTML)*
+	2. After you have the structure, we go in and do the style (css) for the elements *(CSS)*
+	3. Then we will go over the functional part of the component, to create all the interactions that the user can have with our application *(INTERACTIONS)*
+
 
 
 `Tips` 
@@ -121,9 +135,11 @@
 			- 61px it's the same as 6.1rem
 			- 1248px it's the same as 124.8rem
 
+- *TIP for multiple cursors in VSCode*
+	- if you need to change something in VSCode and don't have the ability to use the *Command+D* option to do multi-line changes, we can just hold the key *Option* and click in all the lines that you want to edit simultaneously 
 
 `Repository for the project`
 - we can find the code for the project in:
 	- https://github.com/0xREALAldc/ignite-01-reactjs-fundamentals
 
-Add:  
+
