@@ -97,12 +97,18 @@
 - this means the size of font will be relative to the device, and allows to if people have theis devices configured to increase/decrease the font size to still do this in your website.
 - it's a good practice to use this relative metric units in every aspect of our application, like for buttons or spacing, because in this way our appplication will grow or shrink as a whole in all elements if the user have some custom configuration in his device
 
+`Importing images in react components` 
+- just as we did with the Css files, we also need to give it a name when we import images to our components, like the example below
+	- `import igniteLogo from '../assets/ignite-logo.svg'` 
+
 
 
 `Tips` 
 - *Can I Use?* : website to know if a browser supports a tech or syntax
 - *n node manage package* : manager to use with nodeJS. It's easier to change between versions of node using this manager, take a look someday
 	- https://github.com/tj/n
+- *INSPECT IN CHROME*
+	- if you inspect a element using *grid* to align items, in chrome we have a option that is displayed in the sidebar *Styles* of the *Elements* when inspecting a html component that if we click the button (it's like a ...) beside the style *display: grid* we can try it our the different styles and see the changes in real time in our browser, without needing to add in our code 
 
 
 - *TIP FOR USING REM metric units* - how to easily convert them
@@ -120,4 +126,4 @@
 - we can find the code for the project in:
 	- https://github.com/0xREALAldc/ignite-01-reactjs-fundamentals
 
-
+Add:  
