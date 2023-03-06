@@ -115,6 +115,54 @@
 	2. After you have the structure, we go in and do the style (css) for the elements *(CSS)*
 	3. Then we will go over the functional part of the component, to create all the interactions that the user can have with our application *(INTERACTIONS)*
 
+`Override outline of elements`
+- the elements, if you *focus* them in the html or use *tab* key, you will notice that they'll have a outline that is a white mixture with something else
+- we can override this to let our application have a better UI using a color from our default colors in the *global.css* with the code below
+```css
+:focus {
+	outline: transparent; /* here we hide that ugly outline */
+	box-shadow: 0 0 0 2px var(--green-500); /* here we add our color for the outline */
+}
+```
+
+`Hidding and showing elements`
+- we will be using the tecnique showed below to hide and display the button for publishing the comment. It's a way that we can do this to be displayed according to what the user is doing
+```css
+/* Here we'll use this footer to apply the properties to hide the button and don't occupy the space, in the button it hides him but still takes the space in screen */
+.commentForm footer {
+	visibility: hidden;
+	max-height: 0;
+}
+
+/* here we are telling css that when we have 'focus' in a element inside the 'form', the 'footer' will be displayed */
+.commentForm:focus-within footer {
+	visibility: visible;
+	max-height: none;
+}
+```
+
+`The TWO MOMENTS where in react we create a component`
+- the fist one that is the easiest one to see when to to this is when something is repeating in our UI across more components or pages, and usually has the same *visual* and same *behavior* or *functionalities* 
+- the second one is when we're able to get something *OUT* of a bigger component without that bigger component stop working, where in this way we leave the *BIGGER* component more clean and with a clearer function, easier to give maintenance 
+	- EG: a screen where we have a listing of users and in the top of the page we have a  button to make upload of users using a .xls document. 
+		- so in the button we'll identify when the user clicks, we'll make the upload of the document to pass it to our backend to register all the users...so we can clearly see all the functions that the button has, and that all it does has nothing that influence in the listing of the users. 
+			- So here it's the case where even if we don't use again this button somewhere else, we can put it in a component because this will not change the flow for the *listing component* 
+
+`DEFAULT values for props` 
+- we can do this in two ways, in our component we do 
+```jsx
+	// if different than 'false' or 'undefined', it's true
+	const hasBorder = props.hasBorder != false; 
+	<img
+		className={hasBorder ? styles.avatarWithBorder : styles.avatar}
+		src={props.src}
+	/>
+```
+- or the second way, we can use the *destructuring concept* and define a *default* value for the property
+```jsx
+export function Avatar({ hasBorder = true, src }) {...
+```
+
 
 
 `Tips` 
