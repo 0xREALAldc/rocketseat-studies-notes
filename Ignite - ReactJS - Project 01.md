@@ -162,7 +162,56 @@
 ```jsx
 export function Avatar({ hasBorder = true, src }) {...
 ```
+`Responsiveness` 
+- a good trick to have our site be responsive, in this layout where we're using *grid-template* is using the code from below, where we use the *@media (max-width: 768px)* to identify that the user is in a *mobile browser* and apply a rule to it, where in our case we change the template to have *only one* column and in this way, the sidebar goes to the top of the page with the posts below her, leaving a nicer look to our user
+```css
+@media (max-width: 768px) {
+	.wrapper {
+		grid-template-columns: 1fr; /* 1fr -> uses the whole space*/
+	}
+}
+```
 
+
+`Iteration` 
+- the method *forEach* iterates throught an array, but it has as default *NO RETURN*. So if we try to use him to render react components, we'll end up with a empty screen
+- NOW we have another function to iterate throught arrays and this one *DOES HAVE RETURN* and it's called *.map* 
+
+`Intl` 
+- is a namespace for ECMAScript Internationalization API that provides us with string comparison, number formatting, date and time formatting. 
+- will help us to format dates, time, numbers and so on when we need based in the language from where the person is accessing the application
+- we can look into the documentation for more information
+	- https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat
+- we'll show a example of use below
+```javascript
+	const publishedDateFormatted = new Intl.DateTimeFormat('pt-BR', {
+		day: '2-digit',
+		month: 'long',
+		hour: '2-digit',
+		minute: '2-digit'
+	}).format(myDate)
+```
+
+
+`date-fns`
+- as a second option to a date formatter, we have *date-fns* 
+- if we choose to use it, we can install it using `npm i date-fns` 
+- we can see the documentation for more infos 
+	- https://date-fns.org/docs/Getting-Started
+- we'll have an example below, and with *date-fns* it's simpler to format a date to the way we want it. As we see it, we can convert the type of the date based in a *locale* that is the location of the user 
+```javascript 
+// we need to import from 'date-fns'
+import { format } from 'date-fns'
+// import ptBR from 'date-fns/locale/pt-BR'
+
+const publishedDateFormatted = format(
+	publishedAt, "d 'of' LLLL 'at' h:mm"/*, { locale: ptBR, }*/)
+```
+
+
+`useState` 
+- is the possibility to store data in a variable that react will *REACT* to changes and refresh the UI automatically for us
+- it's variables that we want the component to keep an eye on the changes
 
 
 `Tips` 
