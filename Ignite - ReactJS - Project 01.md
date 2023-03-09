@@ -212,6 +212,37 @@ const publishedDateFormatted = format(
 `useState` 
 - is the possibility to store data in a variable that react will *REACT* to changes and refresh the UI automatically for us
 - it's variables that we want the component to keep an eye on the changes
+- we declare a *state variable* using the syntax below and the use of the function that react provide for us, *setComments*, is where we apply the concept of *immutability*, where we don't change values but we create new values
+	- using the *setComments* we will not only pass the new value, but also pass the *current value + new value* 
+```jsx
+import { useState } from 'react'
+...
+
+// inside the declaration of our component
+const [comments, setComments] = useState([
+	'Great milestone man, cheers!'
+	])
+```
+
+`Imperative programming`
+- here we say to our code *what must be done*, step by step the path that the application has to follow
+	- EG: Pie recepe
+		- Turn on the oven in 180 degree
+		- Open the oven door ...
+- it's the most common type of programming
+- in *react* we usually avoid using *imperative programming* to use more *declarative programming* 
+
+`Declarative programing`
+- here instead of saying *what must be done step by step*, we only declare the expected result 
+- we give the conditions to achieve the end result 
+	- The oven need to be on at 180 degree
+	- When the oven is hot enough, we can bake the Pie
+	- When the Pie is baked, we can take it out the oven
+
+
+add: continued the explanation of how to 
+
+
 
 
 `Tips` 
