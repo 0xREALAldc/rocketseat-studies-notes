@@ -224,6 +224,7 @@ const [comments, setComments] = useState([
 	])
 ```
 
+
 `Imperative programming`
 - here we say to our code *what must be done*, step by step the path that the application has to follow
 	- EG: Pie recepe
@@ -240,7 +241,25 @@ const [comments, setComments] = useState([
 	- When the Pie is baked, we can take it out the oven
 
 
-add: continued the explanation of how to 
+`How does this 'Imperative' and 'Declarative' was used in our project? We used DECLARATIVE programming`
+- well, one example that can be given is when in the *Post* component when we are working on how to publish a comment from the *textarea*, we *DIDN'T CHANGE* directly the value of the text area usint *event.target.value* not even in one moment.
+- what we did was create a *state* that holds the value that is typed in the *textarea*, and we set in the *textarea* that the *value* property would forever be the value of this new state that we created and gave the name *newCommentText* 
+- then, we also added a *onChange* method to this *textarea* where we set a function *handleNewCommentChange* and in this function we use the *setNewCommentText* to update the value in the state everytime that the user types something
+- then, in the function *handleCreateNewComment* we used the state variable (*newCommentText*) that now holds the text typed by the user in the *textarea*, and use it to update the state that holds all the comments, and after this we can use the state that updates the value of the variable *newCommentText* to set it to '' (empty)
+- doing in this way, we *NEVER* changed by ourself the value of the *textarea* to empty, this change is only done when triggered after the creation of the new commentary in the *handleCreateNewComment* function
+- this is a example of *DECLARATIVE* programming
+
+`Key property - WHY IS SO IMPORTANT` 
+- Well there are 3 key moments where a component in React is renders again
+	- when a state is changed
+	- when a property that is passed to a component changes
+	- when a *parent* component renders again, the child components will render again
+- SO why it's unique?
+	- because the *key* property helps react in the moment that it has to render the components again, and having the *key* propery react doesn't have to render all the components again, it'll compare the list of *keys* that it had with the new one that got noew, to see what it needs to renderx
+- WHY we can't use the *index* of the array as the *key*? It's also unique, isn't?
+	- well, because if we in any moment only change the position of two elements inside the array, we will have changed the list but this will not affect the *index* of the list, so react wont' know that it needs to render only *THESE TWO ELEMENTS* of the array, and it will render *ALL THE LIST* again
+
+
 
 
 
