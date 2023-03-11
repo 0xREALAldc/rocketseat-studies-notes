@@ -259,6 +259,63 @@ const [comments, setComments] = useState([
 - WHY we can't use the *index* of the array as the *key*? It's also unique, isn't?
 	- well, because if we in any moment only change the position of two elements inside the array, we will have changed the list but this will not affect the *index* of the list, so react wont' know that it needs to render only *THESE TWO ELEMENTS* of the array, and it will render *ALL THE LIST* again
 
+`Communication between components`
+- the only way that we can communicate from a component to another is using it's properties
+- and with this said, we're going to create a function *deleteComment* in our *Post* component and pass it to our *Comment* component as a property, in this way we'll use a callback function to delete the comment that we want
+- *GOOD PRACTICE FOR NAMING* functions that are passed as properties and that are *ACTIONS TAKEN BY THE USER* is to use the prefix *on...* before the function, to let others know that this function is called upon some user action
+	- EG: *onDeleteComment={deleteComment}* 
+
+
+`Immutability` 
+- we NEVER change a value of a state, we create a new state in a new memory space
+- this saves react time comparing what should and should'nt refresh in our UI
+- in our project, when we remove a *comment* in the *deleteComment* function, we are creating a new list of comments in the variable *commentsWithoutDeletedOne* with just the comments that are meant to stay in the screen, and after we use the *setComments* to update the state and for react know that it sould reload the component
+
+`onInvalid` 
+- a property available in *inputs* and *textarea* of HTML, it's called always when the html identify that we tried to do a *submit* of the form but the text in the field was invalid
+- we can set a *default* message that is shown to the user when he tries to submit a form and the content is invalid
+- in our project we used with the *handleNewCommentInvalid* and we have to remember to add the call for *event.target.setCustomValidity('')* in the function prior to when we assign some value to the state of the *input or textarea* 
+
+`Closure in React`
+- when updating a *state* value in react, we need to be aware to some things, like if you will update the value of the state and need this value to do something right after, you'll need to use the function to update the state in a different manner
+- usually we do like the example below
+``` js
+setCheeringCount(cheeringCount + 1)
+```
+
+- if we want to call *TWO TIMES*  this function to update the value two times, we cannot use as written below
+```js
+	setCheeringCount(cheeringCount + 1)
+	setCheeringCount(cheeringCount + 1)
+```
+- we need to do like below, because when we do as above each time that react updates a state, it creates a new *context* where in the older context the value of the state is 0, but after executing one time the *setCheeringCount* in the *new context* the value is *1* but in the *older context* the value still is *0*. If we go ahead and call *setCheeringCount(cheeringCount + 1)* again we'll be accessing the *older context* that is still *0*.
+```js
+	setCheeringCount((state) => {
+		return state + 1
+	})
+	setCheeringCount((state) => {
+		return state + 1
+	})
+```
+- now doing as above using the *function* to change the state, in the second time that we call the *setCheeringCount* we'll have access to the value of the state in the new context, that is now *1*
+- this is just a simple example, but we need to take care that if we need to change a state and right after do something with it, we need to use this second option to update the state so the updated version is available right after is changed
+- and to *KNOWLEDGE* in react we never will have access to the state value, in this case *cheeringCount*, updated in the same function. The only way to access the state value would be calling the *setCheeringCount* using the *arrow function* type to manipulate again the state value. If after we call the *setCheeringCount*, no matter if we use the type without the *arrow function* of the one with it, we still will have access in the state *cheeringCount* to the older value, not the one updated
+
+`Typescript` 
+- it's a superset that was created on top of JS to enable us to add static typing in a language as JS that has dynamic typing
+- Typescript helps us with the use of typing when he blocks us because we don't set a type for some variable, warning us before erros happen that they *might* happen, but not that necessary they will
+- but the with the use of typing we'll write a better code, more concise and and leaving a better understanding for whomever that someday do some maintenance for the code
+
+
+
+
+
+
+
+
+
+
+
 
 
 
