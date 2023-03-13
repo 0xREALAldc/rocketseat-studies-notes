@@ -271,10 +271,12 @@ const [comments, setComments] = useState([
 - this saves react time comparing what should and should'nt refresh in our UI
 - in our project, when we remove a *comment* in the *deleteComment* function, we are creating a new list of comments in the variable *commentsWithoutDeletedOne* with just the comments that are meant to stay in the screen, and after we use the *setComments* to update the state and for react know that it sould reload the component
 
+
 `onInvalid` 
 - a property available in *inputs* and *textarea* of HTML, it's called always when the html identify that we tried to do a *submit* of the form but the text in the field was invalid
 - we can set a *default* message that is shown to the user when he tries to submit a form and the content is invalid
 - in our project we used with the *handleNewCommentInvalid* and we have to remember to add the call for *event.target.setCustomValidity('')* in the function prior to when we assign some value to the state of the *input or textarea* 
+
 
 `Closure in React`
 - when updating a *state* value in react, we need to be aware to some things, like if you will update the value of the state and need this value to do something right after, you'll need to use the function to update the state in a different manner
@@ -301,14 +303,75 @@ setCheeringCount(cheeringCount + 1)
 - this is just a simple example, but we need to take care that if we need to change a state and right after do something with it, we need to use this second option to update the state so the updated version is available right after is changed
 - and to *KNOWLEDGE* in react we never will have access to the state value, in this case *cheeringCount*, updated in the same function. The only way to access the state value would be calling the *setCheeringCount* using the *arrow function* type to manipulate again the state value. If after we call the *setCheeringCount*, no matter if we use the type without the *arrow function* of the one with it, we still will have access in the state *cheeringCount* to the older value, not the one updated
 
+
 `Typescript` 
 - it's a superset that was created on top of JS to enable us to add static typing in a language as JS that has dynamic typing
 - Typescript helps us with the use of typing when he blocks us because we don't set a type for some variable, warning us before erros happen that they *might* happen, but not that necessary they will
 - but the with the use of typing we'll write a better code, more concise and and leaving a better understanding for whomever that someday do some maintenance for the code
+- if typescript shows a warning that something that you're passing as a parameter may not exist, we can use the *!* after the variable to tell typescript that we know that it'll exist. It's not a best practice thought
+- when were using *destructuring* in a function with Typescript, we're not going to be able to declare the *type* of each property in herself, we will need to declare a *interface* that has the objects with their types inside and then, we assign this type to the object that we're using destructuring as the example below
+```ts
+	interface Author {
+		name: string;
+		role: string;
+		avatarUrl: string;
+	}
+
+	interface PostProps {
+		author: Author;
+		publishedAt: Date;
+		content: string;
+	}
+//destructuring
+	export function Post({ author, content, publishedAt }: PostProps) {...
+```
 
 
+- `generics` 
+	- this for using types in typescript are like parameters in functions for JS
+	- we can use them to pass a parameter for a type in typescript
+	- like the example below, when we're using a type that is more generic we can specify more from what the call for that variable came. Below we use a *ChangeEvent* for the type of the variable *event* and we specify that this variable cames from a *HTMLTextAreaElement* that is a *textarea* in our HTML
+```ts
+function handleNewCommentChange(event: ChangeEvent<HTMLTextAreaElement>) {
+```
 
 
+`optional properties in Interfaces` 
+- When we declare a interface to use as *type* of a variable, if we have any properties that are *optional* we can declare them with a *? (question mark)* in the end of the variable name to say to typescript that these are optional variables
+```ts
+	interface AvatarProps {
+		hasBorder?: boolean;
+		src: string;
+		alt?: string;
+	}
+```
+
+
+`Extension for Type`
+- is a way that we can pass all the default properties of a return, for example if we return a *img* tag, as default to the *Interface* that we declare so we won't have to declare all of them manually
+- so we can *extend* our interface from another Interface that already exists and it has all the default properties that a *img tag* has in HTML as we do below. And also, we need to pass between the *<>* the type of the tag, in our case *HTMLImageElement* that is another interface but this we don't need to import because it's a global one
+```ts
+import { ImgHTMLAttributes } from 'react'
+
+interface AvatarProps extends ImgHTMLAttributes<HTMLImageElement> {
+```
+
+`rest operator`
+- is a way that we can extract some properties from a object and still get all the other properties and use it, in our case with the *spread operator* to a component as properties like the example showed below
+```ts
+interface AvatarProps extends ImgHTMLAttributes<HTMLImageElement> {
+	hasBorder?: boolean;
+}
+
+export function Avatar({ hasBorder = true, ...props }: AvatarProps) {
+	return (
+		<img
+			className={hasBorder ? styles.avatarWithBorder : styles.avatar}
+			{...props} //here all the properties that are left are passed to the component
+		/>
+	)
+}
+```
 
 
 
