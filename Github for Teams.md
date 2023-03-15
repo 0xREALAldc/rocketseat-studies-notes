@@ -6,7 +6,8 @@
 -  *git branch* use this command in your terminal to list all the branches that exist and a `*` will be shown beside the one that you're in
 -  *git checkout -b [name for the branch]* the *-b* is used when we want to *CREATE A NEW* branch
 	-  EG: `git checkout -b BranchTest` 
-
+- after creating a new branch we need to run *--set-upstream* for one time to tell the new branch wich remore repository to use to syncronize
+	- `git push –set-upstream origin [name of new branch]` 
 `Merge` 
 - is when we get a side branch and put all the changes that we're done in that branch on our *main* 
 - we need to go to the branch that we want to put the *fresh changes* in 
