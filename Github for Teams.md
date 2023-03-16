@@ -25,7 +25,14 @@
 - `git fetch -p` will refresh your local branches to mach the ones from your repository, *REMOVING* the ones that we're delete remotely
 	- this command will only update locally the *list* that your local machine have of the branches that exists in the repository, but if you have done a *git checkout* one time to a branch that was deleted, you will need to use the command to delete locally
 - `git branch -d localBranchName` > delete branch locally   
+	- The `-d` option will delete the branch only if it has already been pushed and merged with the remote branch. Use `-D` instead if you want to force the branch to be deleted, even if it hasn't been pushed or merged yet.
 - `git push origin --delete remoteBranchName` delete branch remotely 
+
+`Recover a deleted branch`
+- Find the `SHA` for the commit at the tip of your deleted branch using: Use the command below to do so:
+	- `git reflog`
+- To restore the branch, use:
+	- `git checkout -b <branch> <sha>` 
 
 `Configuration for the default branch`
 - we need to open the repository in the browser 
