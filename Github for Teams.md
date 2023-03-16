@@ -24,6 +24,8 @@
 - `git fetch` will refresh your local branches to match the ones from your repository
 - `git fetch -p` will refresh your local branches to mach the ones from your repository, *REMOVING* the ones that we're delete remotely
 	- this command will only update locally the *list* that your local machine have of the branches that exists in the repository, but if you have done a *git checkout* one time to a branch that was deleted, you will need to use the command to delete locally
+- `git branch -d localBranchName` > delete branch locally   
+- `git push origin --delete remoteBranchName` delete branch remotely 
 
 `Configuration for the default branch`
 - we need to open the repository in the browser 
