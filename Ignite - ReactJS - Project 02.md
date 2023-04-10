@@ -55,3 +55,21 @@
 - then to structure our project we will create a folder named *pages* inside *src* 
 - to organize better our project, we will create a file to have all our routes called *Router.tsx* 
 - components like *ThemeProvider* or *BrowserRouter* are components that doesn't provide us nothing in the UI but are components that provide us with contexts that are used by our visual components
+
+`Routes Layout`
+- we create a new folder called *layouts* inside the *src* folder
+- we will use the component *Outlet* that comes directly from the *react router DOM*, and he's kind like a blank space where we can put some content in that space 
+- so how this will work to put our *Header* in each of our pages? 
+	- we will go in our *Routes.tsx* file and then add another *Route* tag, but this one will be around all the routes that we want to put our *Header* in. 
+	- what happens is that using this structure, when we go in our *localhost:3333/* or *localhost:3333/history* we will have our *Home* component displayed to the user and also in the place of the component *Outlet* that we also have in the *DefaultLayout*, will be shown the component that cames in the route that the user is accessing in that moment. Cool isn't? 
+
+- `NavLink` 
+	- used as the *link 'a'* tag for the react router DOM
+	- we use to be able to navigate to other components
+	- when we're in one of the pages, react automatically set a *active* class in the tag, that we can use in our CSS to display something to show the user that we are currently in that page, if we use a icon as in this project we can change it's color like below 
+		```css
+		&.active {
+			color: ${(props) => props.theme['green-500']};
+		}
+		```
+ 
