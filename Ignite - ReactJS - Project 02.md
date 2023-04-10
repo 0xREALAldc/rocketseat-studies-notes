@@ -26,3 +26,32 @@
 	- and inside we'll be importing a function from *styled-components* called *createGlobalStyle*
 		- and inside we use the same syntax that we did for a styled-component `export const GlobalStyle = createGlobalStyle` and inside we put all the styling that we want to apply to every html component from our application
 	- to apply this global style to our application, we can import it anywhere in our application but we'll put inside the *App.ts* and it's important that it stays inside the *ThemeProvider* so we still have access to the variables from the theme
+
+`ESLint - ECMAScript Linting` 
+- it's something that verifies that our code is following some code patterns defined by the creators of the project
+	- like default spaces in the beginning of the line
+	- use or not of the `;` that is not mandatory in JS
+- to use it we can install with the command below
+	- `npm i eslint -D` as a developer depencency 
+	- we will also install another package that is a configuration created by the folks at Rocketseat with some patterns for writting code. 
+		- `npm i @rocketseat/eslint-config -D` 
+		- after we will need to create a file called `.eslintrc.json` and inside we will write the code below to use the installed package. We use the name of the packaged with the `/react` in the end because this file has configuration for other languages too, and we want to use only the one for react
+			```json
+			{
+				"extends": "@rocketseat/eslint-config/react"
+			}
+			```
+		- to check for errors we can use the following code, and it will show us what we have wrong in our files. We use the command *npx eslint* then the folder *src* and after the extensions *--ext .ts, .tsx* 
+			- `npx eslint src --ext .ts, .tsx` 
+		- to fix everything, we can run the same command from above but with the flag *--fix* in the end
+			- `npx eslint src --ext .ts, .tsx --fix` 
+	- If you want you can create your own configuration too, you just need to run the command below and go answering the questions that are shown and in the end Eslint will generate a config file for you
+		- `npx eslint --init`  
+
+`React Router DOM` 
+- can be used in *web* or *react native* for mobile
+- to use this package we will install the package with the following command
+		- `npm i react-router-dom` 
+- then to structure our project we will create a folder named *pages* inside *src* 
+- to organize better our project, we will create a file to have all our routes called *Router.tsx* 
+- components like *ThemeProvider* or *BrowserRouter* are components that doesn't provide us nothing in the UI but are components that provide us with contexts that are used by our visual components
