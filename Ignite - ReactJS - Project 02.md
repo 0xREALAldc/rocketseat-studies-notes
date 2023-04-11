@@ -72,4 +72,53 @@
 			color: ${(props) => props.theme['green-500']};
 		}
 		```
- 
+
+`Styled components` 
+- a cool thing that we can do is cascading styling in *styled components*, that is when we're inside a component we can style some tag that will be inside that component, as a *form* a *span* or whatever you want
+```css
+export const HeaderContainer = styled.header`
+
+	display: flex;
+	align-items: center; 
+	justify-content: space-between;
+
+	nav {
+		display: flex;
+		gap: 0.8rem;
+		
+		a {
+			width: 4.8rem;
+			height: 4.8rem;
+			
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			
+			color: ${(props) => props.theme['gray-100']};
+
+			border-top: 3px solid transparent;
+			border-bottom: 3px solid transparent;
+			
+			&:hover {
+				border-bottom: 3px solid ${(props) => props.theme['green-500']};
+			}
+			
+			&.active {
+				color: ${(props) => props.theme['green-500']};
+			}
+	}
+
+}
+`
+```
+
+- another cool feature that styled components has it's the possibility to create a *custom component* that can be used locally by other components that share a bunch of the same styling, as the example below
+```css
+	const BaseInput = styled.input`
+		background: transparent;
+	`
+	
+	export const TaskInput = styled(BaseInput)``
+	export const MinutesAmountInput = styled(BaseInput)``
+```
+
