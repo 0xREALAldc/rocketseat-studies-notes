@@ -54,7 +54,7 @@
 		- `npm i react-router-dom` 
 - then to structure our project we will create a folder named *pages* inside *src* 
 - to organize better our project, we will create a file to have all our routes called *Router.tsx* 
-- components like *ThemeProvider* or *BrowserRouter* are components that doesn't provide us nothing in the UI but are components that provide us with contexts that are used by our visual components
+- components like *ThemeProvider* or *BrowserRouter* are components that doesn't provide us nothing in the UI but are components that provide us with contexts that are used by our visual components (context providers)
 
 `Routes Layout`
 - we create a new folder called *layouts* inside the *src* folder
@@ -121,4 +121,32 @@ export const HeaderContainer = styled.header`
 	export const TaskInput = styled(BaseInput)``
 	export const MinutesAmountInput = styled(BaseInput)``
 ```
+- there are some cool tricks of css on this project, in case of need for reference later
+	- the *styles* for the *Home* and *History* pages have some really cool things
+	- in the *History* styles we created a element inside a span that's really cool and that receive a property to change it's color
+		- we just need to create a interface to describe the properties that this styled component will be able to receive and then pass to the styled component using the generic syntax `export const Status = styled.span<StatusProps>` 
 
+
+`Controllet and Uncontrolled forms` 
+- *Uncontrolled*
+	- we only get the value from the input when we need it, like in a form we would get the values from the inputs only when the user do the *submit*
+	- but we loose the good flow that we have with the *controllet components*, but we win in the performance side
+	- 
+- *Controlled* 
+	- this is when we keep the state of what the user is doing every moment inside a state variable on our component, in real time
+	- what are the benefits of using this type of controll?
+		- we have easy access to the values that the user has inputed to us
+		- we can easily reflect to the user changes in our interface based on these inputs
+		- is very fluid 
+	- what are the bad side ?
+		- every time we change a state, we make react render the component of the state that has changed
+- When we use one of them instead of the other?
+	- controlled > simple forms with only a few inputs, like a login page, a register page
+	- uncontrolled > dashboards that have MANY inputs that are something that you don't need to keep a control of every type that the person gives 
+
+`React Hook Form` 
+- it's a package that is able to work with our forms in both ways *controlled* and *uncontrolled* 
+- we need to install it with the command below
+	- `npm i react-hook-form` 
+- *hooks* are functions that add some functionality to a component, this is why they all begin with the prefix *use* 
+- path: https://react-hook-form.com/
