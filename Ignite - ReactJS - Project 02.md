@@ -149,4 +149,15 @@ export const HeaderContainer = styled.header`
 - we need to install it with the command below
 	- `npm i react-hook-form` 
 - *hooks* are functions that add some functionality to a component, this is why they all begin with the prefix *use* 
+- *useForm* will return for us a object that we can destructuring to get only the variables and methods that we will use
+	- when we're using this *useForm* it's like we are creating a form in our application
+	- `register` is the method from the object that *useForm* returns that will add the fields that we will have in this new form
+		- the syntax to use this function is as follow `{...register("name_of_input")}`
+			- as a second parameter in this call, we can pass a object for configurations, and in our project for example we will use to pass a variable to configure the type of one input, called *valueAsNumber: true*, so this field can be a number 
+				- syntax `{...register("name_of_input", { valueAsNumber: true })}`
+		- it returns methods that are used to handle inputs in JS, as *onChange*, *onBlur*, *onFocus*...
+		- because of this return of methods that the function has, we use the syntax as above with the spread operator (`...register("name")`) to pass all the methods to the input, it would be like we pass each of them by hand to the field
+	- `handleSubmit` is a method that we will use in the *onSubmit* of our form and as parameter of this function, we will pass one function that we create to handle the submit of the form
+		- then our function will be able to receive a parameter called *data* that has the values of all the form fields
+	- `watch` is a method that we can use to, as the name say, *watch* the value of a field
 - path: https://react-hook-form.com/
