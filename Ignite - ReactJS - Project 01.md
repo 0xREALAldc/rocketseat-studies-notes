@@ -73,7 +73,7 @@
 	- *A IMPORTANT* thing to remember is that when we use *css modules* when we import the css file in our component, we need to *GIVE A NAME* to it, like in th example below
 		- `import styles from './Header.module.css' ` 
 		- then when we want to use in a component filling the *className* we will need to use the syntax that we use when we want to use a JS var. So in our component the *className* will be filled as the example below, using curly brackets
-			- EG: `strong className={styles.header}>Ignite Feed</strong>` 
+			- EG: `<strong className={styles.header}>Ignite Feed</strong>` 
 		- if we take a closer look inspecting the element in our browser, we'll se that the name of the *class* in the css that is applied to him it's kinda weird, it'll be a mixture of the name that we choosed for the class, as the example above that we choose *header* with a random hex concatenated. 
 			- Css Modules does this to ensure that not one class that we use in one component change the css style in other component, if in this second component we use the same *name* for the class, as it would be if in component 2 we had in the css a class named *header* again
 	- `global.css` 
@@ -279,6 +279,7 @@ const [comments, setComments] = useState([
 
 
 `Closure in React`
+- closure is when we're  updating a state that depends on the older state of the variable, as example if we're adding a new item to a list, we use the *arrow function* version for it 
 - when updating a *state* value in react, we need to be aware to some things, like if you will update the value of the state and need this value to do something right after, you'll need to use the function to update the state in a different manner
 - usually we do like the example below
 ``` js
@@ -374,11 +375,14 @@ export function Avatar({ hasBorder = true, ...props }: AvatarProps) {
 ```
 
 
+## Challenge 01
+`Uuid` 
+- generates unique Id's, we can use for out TODO project so each task has it's own unique ID
 
+- Let's remember that when changing the state from *todo* to *done* we cannot hurt the *immutability*, we have to respect it. Always we will need to generate a new value
 
-
-
-
+- TODO: 
+	- Adjust the control of the view for mobile sizing
 
 
 
