@@ -160,4 +160,83 @@ export const HeaderContainer = styled.header`
 	- `handleSubmit` is a method that we will use in the *onSubmit* of our form and as parameter of this function, we will pass one function that we create to handle the submit of the form
 		- then our function will be able to receive a parameter called *data* that has the values of all the form fields
 	- `watch` is a method that we can use to, as the name say, *watch* the value of a field
+	- `reset` is a function that we can use to reset all the fields of our form after we have done what we should after the submit
+		- it's important to remember that this function will reset the fields to the value that we have difined in the *defaultValues* for each field
 - path: https://react-hook-form.com/
+
+`Validation for forms`
+- as default, *react hook form* doesn't comes with validation for forms
+- it gives emphasis in doing the work of handling the forms and fields but uses another packages that are very good for validation integrated with itself
+- there are many packages for validation as *yup, joi, zod* that we can choose to use
+- we're going to use *zod* becasue it has a better integration with TS, but only because of this. In general, they all do the same things
+- to install *zod* we use the command `npm i zod` 
+- to integrate the *zod* with *react hook form* we need another package that is called *@hookform/resolvers* 
+	- install it with `npm i @hookform/resolvers`
+	- and we need to import *zodResolver* from *'@hookform/resolvers/zod'* 
+	- then in the line where we use the *useForm* we need to pass a object with configurations, to tell that we're going to use the *zodResolver* to integrate *zod* to our form. 
+		- also, in our *zodResolver* we need to tell what is the schema that we're going to use to validate the fields of the form, as we show below in the example 
+	```ts
+	const {register, handleSubmit, watch } = useForm({
+		resolver: zodResolver()
+	})
+	```
+- to check the errors that the validation will show to us, we need to get the variable *formState* from the *useForm* and inside it will have the value *errors* that will have all the errors that our validation can throw
+	- `console.log(formState.errors)` - we can console log in any place of our component to see it in our console in the browser
+- in the *useForm* we can also pass default values in the property *defaultValues* to assign what are the initial values of the fields that we will have in the forms
+
+- `interface` use this definition when we're defining the structure of a object
+- `type` use this definition when we're creating a type from other reference, from other variable or something like this
+- `typeof` use always when we want to reference a JS variable for something in typescript
+
+- in our project, instead of we writing a interface to define the structure of our object that is all the fields in the form we can use *zod* to infer the type from the validation schema that we have defined earlier for *zod*
+	- below I'll leave the example of how we can create a *type* just be infering from the validation schema using *zod* 
+		```ts
+		type NewCycleFormData = zod.infer<typeof newCycleFormValidationSchema>
+		```
+
+`useEffect` 
+- it takes two parameters, the first one a *function* that is going to be called and the second is what *variable* is going to watch over to execute the function
+- if we need to change a state and right after use this new value, we can use a *useEffect* to monitor the value of this state variable and in the use effect, when the variable is changed right after it will call the *useEffect* function and THERE we will have the updated value for this state. 
+	- this is different from if we tried to get the value of this state right after we called his *set...* function, because it would still have the old value, but with the use of *useEffect* we can get access to the new value
+- a good advantage of *useEffect* is that we can tell the component WICH variable is needed to watch over to do something
+- every *useEffect* is ALWAYS executed in the first time that the component is rendered on screen
+	- if we don't want our hook to be called in the first time that the component is rendered we can use a *if* condition to see if the variable that we're supposed to watch over was changed as we wanted
+- BEWARE of this, it's uncommon, VERY uncommon to use a *useEffect* to update a state
+	- if we're needing to use a  *useEffect* to update a state variable, we need to look better to this code because we probably are doing something wrong 
+- ALWAYS that we use a external variable inside a *useEffect* we need to include this variable in the dependency array
+- INSIDE a *useEffect* we always have a *return* that is a function, known as *clean up function*. This is cited in the react useEffect documentation, and describes that all that we do *inside* our useEffect is the *setup function* while the function that ran in the return is called the *cleanup function*. 
+	- in the first render of the component, useEffect will be ran but will only run the *setup function*
+	- this *cleanup function* will run only in a second or whatever number of re-render of your component and also when the component is removed from the DOM react will run the *cleanup function* from the useEffect
+
+`Prop Drilling in React`
+- it's a common problem that is when we have many props only for communication between components
+- when we have only *one* or *two* props that a component needs to be passed to him to fully work, it's okay that we pass it as props, the problem starts when we need too much props
+- we can resolve this problem using *Context API*
+
+`Context API`
+- allow us to share informations between *MANY* components at the same time
+- we don't need to use props to pass information between components, it's like our informations are global variables that all the components have access, modify and when changed and indiferent from which component has made the change all the components that are relying on this information will be updated
+- it's like a way that we can talk to many components in our application at the same time
+- inside *Context API* we can put *ANYTHING* that we want, like variables or states or any information that we want
+- How do we use it?
+	- first we will need to import a function called *createContext* from *react*
+		- *createContext* is the method that will be used to create our context, that we need to assign to a variable. Usually the name of this variable will make sense to what information we're going to store inside this variable and usually it's the first name followed be the suffix *...Context* 
+			- when calling *createContext* the value inside the parenthesis is the *initial value* for the context.
+			- because we use context more when we have MANY values that we want to share between components, we usually store a object as the initial value for *createContext* then inside the object we will describe all the values that we're going to have in this context, as properties
+			```ts
+			const CyclesContext = createContext({
+				activeCyle: 1,
+				// other properties will follow
+			})
+			```
+	- THEN to use the context in the components, we will need to import another function from react called *useContext* 
+		- then inside the component that we want to use the context, we call as below the method passing the context that we've created before as parameter 
+		- from this call we can destruct the return and get the properties from the context that we need to use in that component
+		```ts
+		const { activeCycle } = useContext(CyclesContext)
+		```
+		- but there's one *caveat* in this. If the variable that we've created as above is of a primitive type, the value that we've assigned to her will always be the same, we cannot change it.
+		- to change a value from a variable on a context, we need to use *state*. And this state *HAS* to be created in the component that is the *PARENT* of the other components that need to access this *state* 
+	- THEN to give the children components access to the context, we need to use a component that comes from the context that we've created, in this example *CyclesContext* that's called *CyclesContext.Provider*. We put this component wrapping aroung all the components that we want to allow the access to this context 
+		- this component has a property called *value* that is where we specify the informations that will be shared to the children components
+		- here also we usually use a object to send all the informations that we want to send, as our newly created *state* 
