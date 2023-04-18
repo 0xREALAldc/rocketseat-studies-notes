@@ -240,3 +240,18 @@ export const HeaderContainer = styled.header`
 	- THEN to give the children components access to the context, we need to use a component that comes from the context that we've created, in this example *CyclesContext* that's called *CyclesContext.Provider*. We put this component wrapping aroung all the components that we want to allow the access to this context 
 		- this component has a property called *value* that is where we specify the informations that will be shared to the children components
 		- here also we usually use a object to send all the informations that we want to send, as our newly created *state* 
+		- usually we try to put in a *context* stuff that will not change if we change a library for another or something like it 
+	- When we're using forms and a part of it is not in the main component where we have defined the *useForm* from *react-hook-form* we can use a *context* that react hook form gives us to pass the properties from the parent component to the child component. 
+		- In our case, our *NewCycleForm* needed to use the *register* function to register the fields of our form, so we used the *FormProvider* around the component *NewCycleForm* and more above, we assigned the *useForm* to a variable before destructuring the methods that we would use in the parent component, and then in the *FormProvider* we passed using the *spread operator* all the properties of *useForm* as below
+			```ts
+			const newCycleForm = useForm<NewCycleFormData>({...})
+			...
+			<FormProvider {...newCycleForm} >
+				<NewCycleForm />
+			</FormProvider>
+			```
+		- And in the *NewCycleForm* we will use the function *useFormContext* to get the variables and functions that we need from the context. This *useFormContext* only works in a component that is wrapped around with a *FormProvider* in the parent component
+			```ts
+			const { register } = useFormContext()
+			```
+
