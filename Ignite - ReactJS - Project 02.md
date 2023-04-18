@@ -254,4 +254,11 @@ export const HeaderContainer = styled.header`
 			```ts
 			const { register } = useFormContext()
 			```
+	- NOTE TO REMEMBER : we usually use more *props* in react, *context* is not the main way we pass things from component to component. We have to remember that we only use *context* when we see that we will have MANY variables, functions and stuff that we will need to share between the components, but always the first way to do things is using *props* 
 
+
+`Context between Routes` 
+- we have shared the context between the components used inside the page *Home*, but in our application we also have the page *History* that needs to have access to the *cycles* variable to create the history of all the cycles 
+- what we can do is create a new folder called *contexts* to hold only our contexts
+	- inside we will create the *CylcesContext.tsx* and here we will put all the code that's used only for the context and what was not exported to the context, we will export 
+	- in this way, we will be able to go in out *App.tsx* and use our *CyclesContext* wrapped around the *Routes* component, and in this way we will give access to the context to all the other pages of our application
