@@ -262,3 +262,10 @@ export const HeaderContainer = styled.header`
 - what we can do is create a new folder called *contexts* to hold only our contexts
 	- inside we will create the *CylcesContext.tsx* and here we will put all the code that's used only for the context and what was not exported to the context, we will export 
 	- in this way, we will be able to go in out *App.tsx* and use our *CyclesContext* wrapped around the *Routes* component, and in this way we will give access to the context to all the other pages of our application
+
+`TIP` 
+- to use a *ternary condition* that only has the THEN option, we can use two *&* to make JS understand this. In the case below JS only will run the `<Status statusCode="Green"/>` if the condition is true, in this case different than *undefined* 
+	- EG: `{ cycle.finishedDate && <Status statusCode="Green"/>}` 
+
+`Reducer` 
+- 
