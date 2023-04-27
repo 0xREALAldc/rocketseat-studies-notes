@@ -267,5 +267,88 @@ export const HeaderContainer = styled.header`
 - to use a *ternary condition* that only has the THEN option, we can use two *&* to make JS understand this. In the case below JS only will run the `<Status statusCode="Green"/>` if the condition is true, in this case different than *undefined* 
 	- EG: `{ cycle.finishedDate && <Status statusCode="Green"/>}` 
 
-`Reducer` 
-- 
+`Reducer (useReducer)` 
+- we use just like the *useState* to store a information and change it later
+- we use reducers to store more complex information and mostly for the ones that when we need to change something, it's harder 
+	- when we see that the changes that we make in a *state* they rely on the old state and the changes are done with more code, calculation and stuff
+	- we can use a reducer to have a function, just like in our project we have the function *interruptCycle*, abstracted inside the reducer to be easier to use in more than one place. Using the example of our *interruptCycle* function, today if we want to use this function in other place we would have to copy and paste the code in this second place to have the functionality 
+- the *useReducer* receives two parameters
+	- the first one is a function
+		- this function receives two parameters, 
+			- *state (the current value of our variable)* 
+			- *action (the action the user want to do to alter our variable)* : this we will give the names we want for the functionalities that we want to implement and run
+	- the second is the initial value for our variable that is kind of like our *state* 
+
+1. Notes about the code below
+	1. the *cycles* is the variable with the value, our "state"
+	2. the *dispatch* is kinda like our *setCycles* but the difference is that we will call it passing the name of the functionality that we want to run from our reducer
+		1. when we call dispatch the function in our reducer will run and the value passed as a parameter in the *dispatch(parameter)* will be in the *action* variable of our reducer
+		2. the usual way we pass values as parameter in the *dispatch* is passing a object and inside we put our values
+			1. *type*: we describe what we are sending to be able to distinguish inside the reducer
+			2. *payload* : we put the data that we need to send
+```ts
+const [cycles, dispatch] = useReducer((state: Cycle[], action: any) => {
+	
+	return state
+
+}, [])
+```
+
+`Saving objects inside of a Reducer` 
+- we can create a interface of a object with more than one property and pass as the type for the variable (our state inside the reducer) and in there, we can store more than just one value
+	- in our project, we removed the state for *activeCycleId* and we are using this variable inside our interface that we created to have a object with the array of *cycles* and this *activeCycleId* variable
+
+`Splitting Action Types`
+- first thing we did we got our function that was the *first parameter* in our *useReducer* and splitted in a new file, inside */src/reducers/cycles.ts*
+	- this to make it easier to see and understand both this function and the *CyclesContext.tsx* that was growing too much
+	- to make it easier our life, we also created a *enum* for our ActionTypes so in this way we don't need to remember how each action is written, we can use our enum across our application
+
+`Splitting the Actions` 
+- in the first way we dit the calls with our *dispatch* we would have to remember what to send in the *payload*, but we're going to make it better
+- inside the *src/reducers* folder we're going to change the name of the file we created above with the name *cycles.ts*, now we're going to change it to a folder named *cycles* and inside create two files, one called *reducer.ts* with the contents for the function that was inside the *cycles.ts* and another with the name *actions.ts*
+	- inside this *actions.ts* we're going to define functions that we will call in the *dispatch* and they will already have the type of WHAT we need to send with it and make our lifes easier
+	- I'll leave a example below, where we will be able to see that our action *ADD_NEW_CYCLE* needs in his payload a object with the type of *Cycle* 
+```ts
+export function addNewCycleAction(newCycle: Cycle) {
+
+	return {
+		type: ActionTypes.ADD_NEW_CYCLE,
+		payload: {
+			newCycle,
+		},
+	}
+}
+```
+
+`Using the library Immer` 
+- is a library (or package, you choose the naming) that is used to work with immutable variables, something that is very used in react
+- it's a library to make it easier for us to make changes in immutable variables making it seem like we're changing the value of a usual JS variable, but behind the scenes, Immer is doing just what we do using a `state.map((cycle) => {...})` but we get a way much simplier to do just that
+- to install Immer we use the following command
+	- `npm i immer` 
+- Below we're going to have a example of how Immer makes our life easier when we need to change a value of a *immutable state* 
+```ts
+			// USUAL WAY WE CHANGE A VALUE OF A IMMUTABLE STATE 
+
+case ActionTypes.ADD_NEW_CYCLE:
+	return {
+		...state,
+		cycles: [...state.cycles, action.payload.newCycle],
+		activeCycleId: action.payload.newCycle.id,
+	}
+```
+
+```ts
+			// NOW USING IMMER
+case ActionTypes.ADD_NEW_CYCLE:
+	return produce(state, (draft) => {
+		draft.cycles.push(action.payload.newCycle)
+		draft.activeCycleId = action.payload.newCycle.id
+		})
+```
+- if we take a look at the second piece of code, we see that we are using *.push(..)* in the *cycles* array as if it was a *mutable* variable and in the same time we're using *=* to assign a value to *draft.activeCycleId* too
+- this is only possible because Immer after will treat all of this as Immutable variables, doing what we used to do in the first piece of code, but for us it's way easier now to change values 
+
+
+`TIP` 
+- typescript error translator > helps you to understand some typescript errors that are not that clear to us
+	- https://ts-error-translator.vercel.app/
