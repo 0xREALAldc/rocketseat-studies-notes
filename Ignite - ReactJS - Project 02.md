@@ -272,12 +272,14 @@ export const HeaderContainer = styled.header`
 - we use reducers to store more complex information and mostly for the ones that when we need to change something, it's harder 
 	- when we see that the changes that we make in a *state* they rely on the old state and the changes are done with more code, calculation and stuff
 	- we can use a reducer to have a function, just like in our project we have the function *interruptCycle*, abstracted inside the reducer to be easier to use in more than one place. Using the example of our *interruptCycle* function, today if we want to use this function in other place we would have to copy and paste the code in this second place to have the functionality 
-- the *useReducer* receives two parameters
+- the *useReducer* receives three parameters
 	- the first one is a function
 		- this function receives two parameters, 
 			- *state (the current value of our variable)* 
 			- *action (the action the user want to do to alter our variable)* : this we will give the names we want for the functionalities that we want to implement and run
 	- the second is the initial value for our variable that is kind of like our *state* 
+	- the third one is also a function that's runned right when the reducer is created, so we can use it to retrieve the initial value for the reducer from some place, an API or Local storage of the browser. 
+		- in this third function, we receive as parameter *initialState* that is the value that we define in the second parameter of the reducer. We can return this variable when the value that we tried to retrieve doesn't exists. For example, if we tried to get a value from localstorage but the person never used our application in the browser, it's not going to find the value and the application will crash if we don't pass the default value 
 
 1. Notes about the code below
 	1. the *cycles* is the variable with the value, our "state"
@@ -347,6 +349,49 @@ case ActionTypes.ADD_NEW_CYCLE:
 ```
 - if we take a look at the second piece of code, we see that we are using *.push(..)* in the *cycles* array as if it was a *mutable* variable and in the same time we're using *=* to assign a value to *draft.activeCycleId* too
 - this is only possible because Immer after will treat all of this as Immutable variables, doing what we used to do in the first piece of code, but for us it's way easier now to change values 
+- we're going to give another example below just to show how immer makes our code look more clean 
+```ts 
+		// HERE WE USE A .map TO FIND IN THE ARRAY THE CYCLE WE'RE GOING TO SET THE interruptDate
+		
+return {
+	...state,
+	cycles: state.cycles.map((cycle) => {	
+		if (cycle.id === state.activeCycleId) {
+			return { ...cycle, interruptedDate: new Date() }
+		} else {
+			return cycle
+		}
+	}),
+	activeCycleId: null,
+}
+```
+
+```ts 
+// HERE USING IMMER WE CAN USE THE index OF THE CYCLE TO CHANGE IT'S VALUE INSIDE THE ARRAY
+
+const currentCycleIndex = state.cycles.findIndex((cycle) => {
+	return cycle.id === state.activeCycleId
+})
+
+if (currentCycleIndex < 0) {
+	return state
+}
+
+return produce(state, (draft) => {
+	draft.activeCycleId = null
+	draft.cycles[currentCycleIndex].interruptedDate = new Date()
+})
+```
+
+
+`Saving STATE in the storage of the browser`
+- we're going to save the state of the cycles inside the storade of the browser so we can have the history whenever we want to access it
+- storage only accepts *text* so we're going to save our state as JSON
+- *TIP*: when saving to the local storage, always put a prefix in the name of the information that you're going to save
+	- Diego likes to use the pattern *@name-of-app: [name_of_information]* 
+	- another tip is to put *a suffix* with a version of the variable you're saving. The reason is that if someday you change the structure of what you're saving, someone that it's already running your application in the moment that she opens her browser, it'll crash. Using a number as version after the name for the variable will help for this not to happen
+		- so the pattern would be like *@name-of-app: [name_of_information]-1.0.0* 
+
 
 
 `TIP` 
