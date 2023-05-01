@@ -35,7 +35,7 @@
 `Snowpack` 
 - very similar to Vite, but Vite has more appeal from the frontend dev community
 
-`Creating a porject with Vite`
+`Creating a project with Vite`
 - we need to have *nodeJS* installed
 - to create a project we use the command  below
 	- `npm create vite@latest` 
@@ -142,10 +142,10 @@
 ```
 
 `The TWO MOMENTS where in react we create a component`
-- the fist one that is the easiest one to see when to to this is when something is repeating in our UI across more components or pages, and usually has the same *visual* and same *behavior* or *functionalities* 
+- the fist one that is the easiest one to see when to do this is when something is repeating in our UI across more components or pages, and usually has the same *visual* and same *behavior* or *functionalities* 
 - the second one is when we're able to get something *OUT* of a bigger component without that bigger component stop working, where in this way we leave the *BIGGER* component more clean and with a clearer function, easier to give maintenance 
 	- EG: a screen where we have a listing of users and in the top of the page we have a  button to make upload of users using a .xls document. 
-		- so in the button we'll identify when the user clicks, we'll make the upload of the document to pass it to our backend to register all the users...so we can clearly see all the functions that the button has, and that all it does has nothing that influence in the listing of the users. 
+		- so in the button we'll identify when the user clicks, we'll make the upload of the document to pass it to our backend to register all the users... we can clearly see all the functions that the button has, and that all it does has nothing that influence in the listing of the users. 
 			- So here it's the case where even if we don't use again this button somewhere else, we can put it in a component because this will not change the flow for the *listing component* 
 
 `DEFAULT values for props` 
@@ -212,7 +212,7 @@ const publishedDateFormatted = format(
 `useState` 
 - is the possibility to store data in a variable that react will *REACT* to changes and refresh the UI automatically for us
 - it's variables that we want the component to keep an eye on the changes
-- we declare a *state variable* using the syntax below and the use of the function that react provide for us, *setComments*, is where we apply the concept of *immutability*, where we don't change values but we create new values
+- we declare a *state variable* using the syntax below and the use of the function that react provide for us, *setComments*, where we apply the concept of *immutability*, where we don't change values but we create new values
 	- using the *setComments* we will not only pass the new value, but also pass the *current value + new value* 
 ```jsx
 import { useState } from 'react'
@@ -227,7 +227,7 @@ const [comments, setComments] = useState([
 
 `Imperative programming`
 - here we say to our code *what must be done*, step by step the path that the application has to follow
-	- EG: Pie recepe
+	- EG: Pie recipe
 		- Turn on the oven in 180 degree
 		- Open the oven door ...
 - it's the most common type of programming
@@ -242,7 +242,7 @@ const [comments, setComments] = useState([
 
 
 `How does this 'Imperative' and 'Declarative' was used in our project? We used DECLARATIVE programming`
-- well, one example that can be given is when in the *Post* component when we are working on how to publish a comment from the *textarea*, we *DIDN'T CHANGE* directly the value of the text area usint *event.target.value* not even in one moment.
+- well, one example that can be given is when in the *Post* component when we are working on how to publish a comment from the *textarea*, we *DIDN'T CHANGE* directly the value of the text area using *event.target.value* not even in one moment.
 - what we did was create a *state* that holds the value that is typed in the *textarea*, and we set in the *textarea* that the *value* property would forever be the value of this new state that we created and gave the name *newCommentText* 
 - then, we also added a *onChange* method to this *textarea* where we set a function *handleNewCommentChange* and in this function we use the *setNewCommentText* to update the value in the state everytime that the user types something
 - then, in the function *handleCreateNewComment* we used the state variable (*newCommentText*) that now holds the text typed by the user in the *textarea*, and use it to update the state that holds all the comments, and after this we can use the state that updates the value of the variable *newCommentText* to set it to '' (empty)
@@ -255,12 +255,12 @@ const [comments, setComments] = useState([
 	- when a property that is passed to a component changes
 	- when a *parent* component renders again, the child components will render again
 - SO why it's unique?
-	- because the *key* property helps react in the moment that it has to render the components again, and having the *key* propery react doesn't have to render all the components again, it'll compare the list of *keys* that it had with the new one that got noew, to see what it needs to renderx
+	- because the *key* property helps react in the moment that it has to render the components again, and having the *key* propery react doesn't have to render all the components again, it'll compare the list of *keys* that it had with the new one that got now, to see what it needs to render
 - WHY we can't use the *index* of the array as the *key*? It's also unique, isn't?
 	- well, because if we in any moment only change the position of two elements inside the array, we will have changed the list but this will not affect the *index* of the list, so react wont' know that it needs to render only *THESE TWO ELEMENTS* of the array, and it will render *ALL THE LIST* again
 
 `Communication between components`
-- the only way that we can communicate from a component to another is using it's properties
+- the only way that we can communicate from a component to another is using it's properties or using a Context (we will see this one only later)
 - and with this said, we're going to create a function *deleteComment* in our *Post* component and pass it to our *Comment* component as a property, in this way we'll use a callback function to delete the comment that we want
 - *GOOD PRACTICE FOR NAMING* functions that are passed as properties and that are *ACTIONS TAKEN BY THE USER* is to use the prefix *on...* before the function, to let others know that this function is called upon some user action
 	- EG: *onDeleteComment={deleteComment}* 
@@ -269,7 +269,7 @@ const [comments, setComments] = useState([
 `Immutability` 
 - we NEVER change a value of a state, we create a new state in a new memory space
 - this saves react time comparing what should and should'nt refresh in our UI
-- in our project, when we remove a *comment* in the *deleteComment* function, we are creating a new list of comments in the variable *commentsWithoutDeletedOne* with just the comments that are meant to stay in the screen, and after we use the *setComments* to update the state and for react know that it sould reload the component
+- in our project, when we remove a *comment* in the *deleteComment* function, we are creating a new list of comments in the variable *commentsWithoutDeletedOne* with just the comments that are meant to stay in the screen and after we use the *setComments* to update the state react knows that it should reload the component
 
 
 `onInvalid` 
@@ -307,8 +307,8 @@ setCheeringCount(cheeringCount + 1)
 
 `Typescript` 
 - it's a superset that was created on top of JS to enable us to add static typing in a language as JS that has dynamic typing
-- Typescript helps us with the use of typing when he blocks us because we don't set a type for some variable, warning us before erros happen that they *might* happen, but not that necessary they will
-- but the with the use of typing we'll write a better code, more concise and and leaving a better understanding for whomever that someday do some maintenance for the code
+- Typescript helps us with the use of typing when he blocks us because we don't set a type for some variable, warning us before errors happen that they *might* happen, but not that necessary they will
+- but the with the use of typing we'll write a better code, more concise and leaving a better understanding for whomever that someday do some maintenance for the code
 - if typescript shows a warning that something that you're passing as a parameter may not exist, we can use the *!* after the variable to tell typescript that we know that it'll exist. It's not a best practice thought
 - when were using *destructuring* in a function with Typescript, we're not going to be able to declare the *type* of each property in herself, we will need to declare a *interface* that has the objects with their types inside and then, we assign this type to the object that we're using destructuring as the example below
 ```ts
@@ -331,7 +331,7 @@ setCheeringCount(cheeringCount + 1)
 - `generics` 
 	- this for using types in typescript are like parameters in functions for JS
 	- we can use them to pass a parameter for a type in typescript
-	- like the example below, when we're using a type that is more generic we can specify more from what the call for that variable came. Below we use a *ChangeEvent* for the type of the variable *event* and we specify that this variable cames from a *HTMLTextAreaElement* that is a *textarea* in our HTML
+	- like the example below, when we're using a type that is more generic we can specify better from where the call for that variable came. Below we use a *ChangeEvent* for the type of the variable *event* and we specify that this variable cames from a *HTMLTextAreaElement* that is a *textarea* in our HTML
 ```ts
 function handleNewCommentChange(event: ChangeEvent<HTMLTextAreaElement>) {
 ```
@@ -350,7 +350,7 @@ function handleNewCommentChange(event: ChangeEvent<HTMLTextAreaElement>) {
 
 `Extension for Type`
 - is a way that we can pass all the default properties of a return, for example if we return a *img* tag, as default to the *Interface* that we declare so we won't have to declare all of them manually
-- so we can *extend* our interface from another Interface that already exists and it has all the default properties that a *img tag* has in HTML as we do below. And also, we need to pass between the *<>* the type of the tag, in our case *HTMLImageElement* that is another interface but this we don't need to import because it's a global one
+- so we can *extend* our interface from another Interface that already exists and it has all the default properties that a *img tag* has in HTML as we do below. And also, we need to pass between the *<>* the type of the tag, in our case *HTMLImageElement* that is another interface but this one we don't need to import because it's a global variable
 ```ts
 import { ImgHTMLAttributes } from 'react'
 
